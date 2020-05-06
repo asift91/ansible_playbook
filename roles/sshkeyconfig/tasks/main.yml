@@ -1,7 +1,7 @@
 --- 
 - 
   #delegate_to: localhost
-  local_action: "command echo \"${{vm_password | quote }}\" | sshpass ssh-copy-id -f -i /home/{{user_name | quote }}/.ssh/id_rsa.pub {{user_name | quote }}@\"{{vm_ip | quote }}\""
+  local_action: "command echo \"{{vm_password | quote }}\" | sshpass ssh-copy-id -f -i /home/{{user_name | quote }}/.ssh/id_rsa.pub {{user_name | quote }}@\"{{vm_ip | quote }}\""
   name: "Create webroot"
   tasks: ~
 - 
