@@ -5,6 +5,6 @@
      local_action: sudo apt-get update
      local_action: sudo apt-get install sshpass
      local_action: sudo ssh-keygen -t rsa -N '' -f /home/{{user_name | quote }}/.ssh/id_rsa <<< y
-      local_action:  echo "${{vm_password | quote }}" | sshpass ssh-copy-id -f -i /home/{{user_name | quote }}/.ssh/id_rsa.pub {{user_name | quote }}@"{{vm_ip | quote }}"
+     local_action:  echo "${{vm_password | quote }}" | sshpass ssh-copy-id -f -i /home/{{user_name | quote }}/.ssh/id_rsa.pub {{user_name | quote }}@"{{vm_ip | quote }}"
 
       
