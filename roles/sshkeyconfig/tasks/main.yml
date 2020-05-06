@@ -1,9 +1,5 @@
 --- 
 - 
-  local_action: "command echo \"{{vm_password | quote }}\" | sshpass ssh-copy-id -f -i /home/{{user_name | quote }}/.ssh/id_rsa.pub {{user_name | quote }}@\"{{vm_ip | quote }}\""
-  name: "Create webroot"
-  tasks: ~
-- 
   local_action: "sudo apt-get update"
   name: "ssh key configuration"
   tasks: ~
@@ -15,3 +11,9 @@
   local_action: "sudo ssh-keygen -t rsa -N '' -f /home/{{user_name | quote }}/.ssh/id_rsa <<< y"
   name: "ssh key configuration"
   tasks: ~
+
+- 
+  local_action: "command echo \"{{vm_password | quote }}\" | sshpass ssh-copy-id -f -i /home/{{user_name | quote }}/.ssh/id_rsa.pub {{user_name | quote }}@\"{{vm_ip | quote }}\""
+  name: "Create webroot"
+  tasks: ~
+
