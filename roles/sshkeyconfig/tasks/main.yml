@@ -1,19 +1,19 @@
 --- 
 - 
-  local_action: command sudo apt-get update
+  local_action: command apt-get update
   name: "ssh key configuration"
-  tasks: ~
+  become: yes
 - 
-  local_action: command sudo apt-get install sshpass
+  local_action: command apt-get install sshpass
   name: "ssh key configuration"
-  tasks: ~
+  become: yes
 - 
-  local_action: command sudo ssh-keygen -t rsa -N '' -f /home/{{user_name | quote }}/.ssh/id_rsa <<< y
+  local_action: command ssh-keygen -t rsa -N '' -f /home/{{user_name | quote }}/.ssh/id_rsa <<< y
   name: "ssh key configuration"
-  tasks: ~
+  become: yes
 
 - 
   local_action: command echo \"{{vm_password | quote }}\" | sshpass ssh-copy-id -f -i /home/{{user_name | quote }}/.ssh/id_rsa.pub {{user_name | quote }}@\"{{vm_ip | quote }}\"
   name: "Create webroot"
-  tasks: ~
+  become: yes
 
