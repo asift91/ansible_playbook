@@ -8,7 +8,7 @@
   name: "install sshpass"
   become: yes
 - 
-  local_action: command ssh-keygen -t rsa -N '' -f /home/{{user_name | quote }}/.ssh/id_rsa <<< y
+  local_action: command ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -C "" -N ""
   name: "generate key"
   become: yes
   
