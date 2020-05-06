@@ -5,5 +5,6 @@
       command: sudo apt-get update
       command: sudo apt-get install sshpass
       command: sudo ssh-keygen -t rsa -N '' -f
-      command: echo "${2}" | sshpass ssh-copy-id -f -i
-      delegate_to: 127.0.0.1
+      command:  echo "${2}" | sshpass ssh-copy-id -f -i /home/${3}/.ssh/id_rsa.pub ${3}@"${1}"
+
+      
