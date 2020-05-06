@@ -8,8 +8,7 @@
   name: "install sshpass"
   become: yes
 
-- 
-  openssh_keypair:
+- openssh_keypair:
   path: /home/{{user_name | quote }}/.ssh
   name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
   become: yes
