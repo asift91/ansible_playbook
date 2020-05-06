@@ -7,11 +7,13 @@
   local_action: command apt-get install sshpass
   name: "install sshpass"
   become: yes
+
 - 
-  local_action: command ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -C "" -N ""
-  name: "generate key"
+  openssh_keypair:
+  path: /tmp/id_ssh_rsa  
+  name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
   become: yes
-  
+
 - 
   local_action: command  echo "{{vm_password | quote }}" | sshpass ssh-copy-id -f -i /home/{{user_name | quote }}/.ssh/id_rsa.pub {{user_name | quote }}@"{{vm_ip | quote }}"
   name: "copy key"
