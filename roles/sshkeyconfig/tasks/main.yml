@@ -1,0 +1,9 @@
+- hosts: webservers
+
+  tasks:
+    - name: ssh key configuration
+      command: sudo apt-get update
+      command: sudo apt-get install sshpass
+      command: sudo ssh-keygen -t rsa -N '' -f
+      command: echo "${2}" | sshpass ssh-copy-id -f -i
+      delegate_to: 127.0.0.1
