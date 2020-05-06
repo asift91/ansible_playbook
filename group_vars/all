@@ -1,5 +1,5 @@
 ---
 hostname: "{{ moodle_domain }}"
-VM_IP: 
-VM_Password:
+vm_ip: 
+vm_password:
 user_name: 
