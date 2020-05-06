@@ -9,9 +9,9 @@
   become: yes
 
 - openssh_keypair:
-  path: /home/{{user_name | quote }}/.ssh
-  name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
-  become: yes
+    path: /home/{{user_name | quote }}/.ssh
+    name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
+    become: yes
 
 - 
   local_action: command  echo "{{vm_password | quote }}" | sshpass ssh-copy-id -f -i /home/{{user_name | quote }}/.ssh/id_rsa.pub {{user_name | quote }}@"{{vm_ip | quote }}"
