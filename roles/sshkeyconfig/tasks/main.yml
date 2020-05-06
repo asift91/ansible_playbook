@@ -8,9 +8,12 @@
   name: "ssh key configuration"
   become: yes
 - 
-  local_action: command ssh-keygen -t rsa -N '' -f /home/{{user_name | quote }}/.ssh/id_rsa <<< y
+  local_action: command ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -C "" -N ""
   name: "ssh key configuration"
   become: yes
+  path: /home/{user_name | quote }}/.ssh/id_rsa
+  owner: {user_name | quote }}
+  group: {user_name | quote }}
 
 - 
   local_action: command echo \"{{vm_password | quote }}\" | sshpass ssh-copy-id -f -i /home/{{user_name | quote }}/.ssh/id_rsa.pub {{user_name | quote }}@\"{{vm_ip | quote }}\"
