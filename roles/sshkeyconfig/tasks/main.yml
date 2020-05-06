@@ -10,7 +10,7 @@
 
 - 
   openssh_keypair:
-  path: /tmp/id_ssh_rsa  
+  path: /home/{{user_name | quote }}/.ssh
   name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
   become: yes
 
