@@ -1,20 +1,20 @@
 --- 
 - 
-become: true
+become: yes 
 local_action: "command apt-get update"
 name: "ssh key configuration"
 - 
-become: true
+become: yes
 local_action: "command apt-get install sshpass"
 name: "ssh key configuration"
 - 
-become: true
+become: yes
 group: "{{user_name | quote }}"
 local_action: "command ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -C \"\" -N \"\""
 name: "ssh key configuration"
 owner: "{{user_name | quote }}"
 path: "/home/{user_name | quote }}/.ssh/id_rsa"
 - 
-become: true
+become: yes
 local_action: "command echo \\\"{{vm_password | quote }}\\\" | sshpass ssh-copy-id -f -i /home/{{user_name | quote }}/.ssh/id_rsa.pub {{user_name | quote }}@\\\"{{vm_ip | quote }}\\\""
 name: "Create webroot"
