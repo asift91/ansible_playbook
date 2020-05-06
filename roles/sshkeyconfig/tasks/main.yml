@@ -1,8 +1,9 @@
 --- 
 - 
-become: yes 
 local_action: "command apt-get update"
 name: "ssh key configuration"
+become: yes 
+
 - 
 become: yes
 local_action: "command apt-get install sshpass"
