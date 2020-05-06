@@ -1,5 +1,6 @@
 ---
+#vm details are updated in runtime
 hostname: "{{ moodle_domain }}"
-vm_ip: 
-vm_password:
-user_name: 
+vm_ip: 13.68.243.254
+vm_password: iTalent@27
+user_name: azureadmin
