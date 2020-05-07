@@ -1,7 +1,7 @@
 --- 
 - 
   args: 
-    creates: "/home/"{{user_name | quote }}"/.ssh"
+    creates: "/home/{{user_name | quote }}/.ssh"
   become: yes
   hosts: localhost
   local_action: command ssh-keygen -q -t rsa -f /home/"{{user_name | quote }}"/.ssh -C "" -N ""
