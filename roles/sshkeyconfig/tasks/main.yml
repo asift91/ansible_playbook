@@ -1,19 +1,18 @@
---- 
-- 
-  local_action: command apt-get update
-  name: "update"
-  become: yes
-- 
-  local_action: command apt-get install sshpass
-  name: "install sshpass"
-  become: yes
-  
-- 
-  become: yes
-  local_action: command ssh-keygen -q -t rsa -f /home/{{user_name | quote }}/.ssh -C "" -N ""
-  name: "Generate RSA host key"
-  
-- 
-  local_action: command  echo "{{vm_password | quote }}" | sshpass ssh-copy-id -f -i /home/{{user_name | quote }}/.ssh/id_rsa.pub {{user_name | quote }}@"{{vm_ip | quote }}"
-  name: "copy key"
-  become: yes
+- name: generate SSH key
+  hosts: 127.0.0.1
+  connection: local
+  vars:
+    ssh_key_filename: id_rsa
+  vars_prompt:
+    - name: "ssh_passphrase"
+      prompt: "Enter the passphrase for the SSH key"
+  tasks:
+    - name: generate SSH key "{{ssh_key_filename}}"
+      user:
+        name: "{{ansible_user}}"
+        generate_ssh_key: yes
+        ssh_key_type: rsa
+        ssh_key_bits: 4096
+        ssh_key_file: .ssh/id_rsa
+        ssh_key_passphrase: "{{ssh_passphrase}}"
+        force: no
