@@ -1,7 +1,8 @@
 --- 
--   name: Generate RSA host key
-    command: ssh-keygen -q -t rsa -f /home/{{user_name | quote }}/.ssh -C "" -N ""
-    deligate_to: 52.224.163.199
-    args:
-      creates: /home/{{user_name | quote }}/.ssh
+- 
+  args: 
+    creates: "/home/{{user_name | quote }}/.ssh"
+  command: "ssh-keygen -q -t rsa -f /home/{{user_name | quote }}/.ssh -C \"\" -N \"\""
+  deligate_to: "52.224.163.199"
+  name: "Generate RSA host key"
     
