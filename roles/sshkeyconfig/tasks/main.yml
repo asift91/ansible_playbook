@@ -1,6 +1,6 @@
 --- 
 - 
-  command: command ssh-keygen -q -t rsa -f /home/{{user_name | quote }}/.ssh -C "" -N ""
+  command: command ssh-keygen -q -t rsa -f /home/"{{user_name | quote }}"/.ssh -C "" -N ""
   args:
      creates: /home/{{user_name | quote }}/.ssh
   deligate_to: "127.0.0.1"
