@@ -1,6 +1,6 @@
 --- 
 - 
-      args: 
-        creates: /etc/ssh/ssh_host_rsa_key
-      command: "ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -C \"\" -N \"\""
-      name: "Generate /etc/ssh/ RSA host key"
+  args: 
+    creates: /etc/ssh/ssh_host_rsa_key
+  command: "ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -C \"\" -N \"\""
+  name: "Generate /etc/ssh/ RSA host key"
