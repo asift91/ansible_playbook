@@ -1,10 +1,11 @@
----
-- hosts: all
-  become: yes
+--- 
+- 
+  become: true
   gather_facts: false
-
-  tasks:
-  - name: Generate /etc/ssh/ RSA host key
-    command : ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -C "" -N ""
-    args:
-      creates: /etc/ssh/ssh_host_rsa_key
+  hosts: all
+  tasks: 
+    - 
+      args: 
+        creates: /etc/ssh/ssh_host_rsa_key
+      command: "ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -C \"\" -N \"\""
+      name: "Generate /etc/ssh/ RSA host key"
