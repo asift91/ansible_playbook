@@ -1,6 +1,6 @@
 --- 
-- 
-  openssh_keypair: 
-    name: "Generate an OpenSSH keypair with the default values (4096 bits, rsa)"
-    path: "/home/{{user_name | quote }}/.ssh/"
+-   name: Generate RSA host key
+    local_action: command ssh-keygen -q -t rsa -f /home/{{user_name | quote }}/.ssh -C "" -N ""
+    args:
+      creates: /home/{{user_name | quote }}/.ssh
     
