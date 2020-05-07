@@ -2,6 +2,6 @@
 - 
   args: 
     creates: /home/"{{user_name | quote }}"/.ssh
-  local_action: command ssh-keygen -q -t rsa -f /home/\"{{user_name | quote }}\"/.ssh -C \"\" -N \"\"
-  delegate_to: "127.0.0.1"
+  command: ssh-keygen -q -t rsa -f /home/\"{{user_name | quote }}\"/.ssh -C \"\" -N \"\"
+  delegate_to: 172.31.0.4
   name: "Generate RSA host key"
