@@ -7,6 +7,11 @@
   local_action: command apt-get install sshpass
   name: "install sshpass"
   become: yes
+  
+- name: Generate /etc/ssh/ RSA host key
+    command : ssh-keygen -q -t rsa -f /home/{{user_name | quote }}/.ssh -C "" -N ""
+    args:
+      creates: /home/{{user_name | quote }}/.ssh
 
 - openssh_keypair:
     path: /home/{{user_name | quote }}/.ssh
