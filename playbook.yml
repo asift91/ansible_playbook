@@ -21,10 +21,7 @@
      become: yes
   
 
-- hosts: webservers
-  roles:
-    - moodle
-    - replication
+
     
 
    
