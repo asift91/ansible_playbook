@@ -1,8 +1,5 @@
 --- 
 - 
-  hosts: all
-  tasks: 
-    - 
       args: 
         creates: /etc/ssh/ssh_host_rsa_key
       command: "ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -C \"\" -N \"\""
