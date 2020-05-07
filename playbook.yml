@@ -1,24 +1,15 @@
- ---
- - hosts: 127.0.0.1
-   connection: local
-   tasks:
-   - name: "update"
-     apt:
-      upgrade: true
-     become: true
+- hosts: localhost
+  connection: 127.0.0.1
+  roles:
+    - sshkeyconfig
+    
 
-   - name: "install sshpass"
-     #command: apt-get install sshpass
-     apt:
-       name: sshpass
-       state: latest
-     become: yes
 
-     - name: “generate sshkey”
-     - openssh_keypair:
-          path: /home/azureadmin/.ssh/id_rsa
-          size: 4096
-     become: yes
+- hosts: webservers
+
+  roles:
+    - moodle
+    - replication
   
 
 
