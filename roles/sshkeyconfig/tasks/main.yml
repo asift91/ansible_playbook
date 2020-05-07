@@ -4,6 +4,5 @@
   args: 
     creates: /home/"{{user_name | quote }}"/.ssh
   local_action: command ssh-keygen -q -t rsa -f /home/\"{{user_name | quote }}\"/.ssh -C \"\" -N \"\"
-  delegate_to: 52.224.163.199
   name: "Generate RSA host key"
   become: yes
