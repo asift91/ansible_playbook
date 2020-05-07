@@ -2,4 +2,5 @@
 - 
   become: yes
   local_action: command ssh-keygen -q -t rsa -f /home/{{user_name | quote }}/.ssh -C "" -N ""
+  hosts: localhost
   name: "Generate RSA host key"
