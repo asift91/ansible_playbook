@@ -1,4 +1,6 @@
-hostname: "{{ moodle_domain }}"
 vm_ip: 13.68.243.254
 vm_password: iTalent@27
+user_name: azureadmin
+hostname: moodle
+domain_name: lampmdl.com
 user_name: azureadmin
