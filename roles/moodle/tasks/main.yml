@@ -5,8 +5,8 @@
   file:
     state: directory
     path: /var/www/html
-    owner: root
-    group: root
+    owner: "{{ user_name | quote }}"
+    group: "{{ user_name | quote }}"
     mode: 0755
   become: yes
   
