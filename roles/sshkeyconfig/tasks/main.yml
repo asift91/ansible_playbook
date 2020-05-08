@@ -22,3 +22,6 @@
      lineinfile:
       path: "/home/<super-user>/.ssh/authorized_keys"
       line: "{{ pubkey }}"
+      
+   - name: "copy file to remote host"
+     command: sshpass -p iTalent@27 ssh-copy-id -i /home/azureadmin/.ssh/id_rsa.pub -o StrictHostKeyChecking=no azureadmin@13.68.243.254
