@@ -1,6 +1,8 @@
 ---
-   #tasks:
-   - name: "update"
+ - hosts: 127.0.0.1
+   connection: local
+   tasks:
+   - name: "upgrade"
      apt:
       upgrade: true
      become: true
@@ -15,6 +17,8 @@
    - name: “generate sshkey”
      openssh_keypair:
       path: /home/azureadmin/.ssh/id_rsa
+      group: azureadmin
+      owner: azureadmin
       size: 4096
      become: yes
       
