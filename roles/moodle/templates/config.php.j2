@@ -40,10 +40,10 @@ $CFG = new stdClass();
 
 $CFG->dbtype    = 'mariadb';      // 'pgsql', 'mariadb', 'mysqli', 'mssql', 'sqlsrv' or 'oci'
 $CFG->dblibrary = 'native';     // 'native' only at the moment
-$CFG->dbhost    = "{{ dbhost | quote }}";  // eg 'localhost' or 'db.isp.com' or IP
-$CFG->dbname    = "{{ dbname | quote }}";     // database name, eg moodle
-$CFG->dbuser    = "{{ dbuser | quote }}";   // your database username
-$CFG->dbpass    = "{{ dbpass | quote }}";   // your database password
+$CFG->dbhost    = {{ dbhost | quote }};  // eg 'localhost' or 'db.isp.com' or IP
+$CFG->dbname    = {{ dbname | quote }};     // database name, eg moodle
+$CFG->dbuser    = {{ dbuser | quote }};   // your database username
+$CFG->dbpass    = {{ dbpass | quote }};   // your database password
 $CFG->prefix    = 'mdl_';       // prefix to use for all table names
 $CFG->dboptions = array(
     'dbpersist' => false,       // should persistent database connections be
