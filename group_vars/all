@@ -1,6 +1,5 @@
-vm_ip: 13.68.243.254
-vm_password: iTalent@27
-user_name: azureadmin
+vm_ip: IP
+vm_password: password
+user_name: azusername
 hostname: moodle
-domain_name: lampmdl.com
-user_name: azureadmin
+domain_name: domain
