@@ -35,5 +35,5 @@
   file: path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes
 
 - name: Create moodledata directory
-  file: path=/var/moodledata owner=www-data group=www-data state=directory recurse=yes
+  file: path=/var/www/html/moodledata owner=www-data group=www-data state=directory recurse=yes
   become: yes
