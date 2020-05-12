@@ -49,7 +49,7 @@ description: "It will find regexp and replace line"
 regexp: "{{ item.regexp }}"
 line: "{{ item.line }}"
 with_items:
-- {'regexp': "define\\('db_name', '(.)+'\\);", 'line': "define('db_name', '{{db_name}}');"}
-- {'regexp': "define\\('db_user', '(.)+'\\);", 'line': "define('db_user', '{{d_username}}');"}
-- {'regexp': "define\\('db-password', '(.)+'\\);", 'line': "define('db_password', '{{db_password}}');"}
+- {'regexp': "define\\('dbname', '(.)+'\\);", 'line': "define('dbname', '{{db_name}}');"}
+- {'regexp': "define\\('dbuser', '(.)+'\\);", 'line': "define('dbuser', '{{d_username}}');"}
+- {'regexp': "define\\('dbpassword', '(.)+'\\);", 'line': "define('dbpassword', '{{db_password}}');"}
 become: yes
