@@ -38,6 +38,5 @@
   name: "Create moodledata directory"
 - 
   become: true
-  description: "It will add config.php file "
   name: "Add config.php"
   template: "src=config.php dest=/var/www/html/{{ hostname }}/config.php"
