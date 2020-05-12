@@ -37,3 +37,20 @@
   file: "path=/var/moodledata owner=www-data group=www-data state=directory recurse=yes"
   name: "Create moodledata directory"
 
+- name: Add config.php
+template: "src=config.php dest=/var/www/html/{{server_hostname}}/wp-config.php"
+description: "It will add wp-config.php file " 
+become: yes
+
+- name: Update WordPress config file
+
+lineinfile:
+dest: "/var/www/html/{{server_hostname}}/wp-config.php"
+description: "It will find regexp and replace line"
+regexp: "{{ item.regexp }}"
+line: "{{ item.line }}"
+with_items:
+- {'regexp': "define\\('DB_NAME', '(.)+'\\);", 'line': "define('DB_NAME', '{{wp_db_name}}');"}
+- {'regexp': "define\\('DB_USER', '(.)+'\\);", 'line': "define('DB_USER', '{{wp_db_user}}');"}
+- {'regexp': "define\\('DB_PASSWORD', '(.)+'\\);", 'line': "define('DB_PASSWORD', '{{wp_db_password}}');"}
+become: yes
