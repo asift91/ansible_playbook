@@ -38,19 +38,18 @@
   name: "Create moodledata directory"
 
 - name: Add config.php
-template: "src=config.php dest=/var/www/html/{{server_hostname}}/wp-config.php"
-description: "It will add wp-config.php file " 
-become: yes
+  template: "src=config.php dest=/var/www/html/{{ hostname }}/config.php"
+  become: yes
 
-- name: Update WordPress config file
+- name: Update Moodle config file
 
 lineinfile:
-dest: "/var/www/html/{{server_hostname}}/wp-config.php"
+dest: "/var/www/html/{{ hostname }}/config.php"
 description: "It will find regexp and replace line"
 regexp: "{{ item.regexp }}"
 line: "{{ item.line }}"
 with_items:
-- {'regexp': "define\\('DB_NAME', '(.)+'\\);", 'line': "define('DB_NAME', '{{wp_db_name}}');"}
-- {'regexp': "define\\('DB_USER', '(.)+'\\);", 'line': "define('DB_USER', '{{wp_db_user}}');"}
-- {'regexp': "define\\('DB_PASSWORD', '(.)+'\\);", 'line': "define('DB_PASSWORD', '{{wp_db_password}}');"}
+- {'regexp': "define\\('db_name', '(.)+'\\);", 'line': "define('db_name', '{{db_name}}');"}
+- {'regexp': "define\\('db_user', '(.)+'\\);", 'line': "define('db_user', '{{d_username}}');"}
+- {'regexp': "define\\('db-password', '(.)+'\\);", 'line': "define('db_password', '{{db_password}}');"}
 become: yes
