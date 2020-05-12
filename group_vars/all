@@ -4,10 +4,4 @@ user_name: azusername
 hostname: moodle
 domain_name: domain
 
-#dbdetails
-#The below values will get updated dynamically at run time
 
-dbhost: localhost
-dbname: moodledb
-dbuser: dbusername
-dbpass: dbpassword
