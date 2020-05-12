@@ -36,20 +36,25 @@
   become: true
   file: "path=/var/moodledata owner=www-data group=www-data state=directory recurse=yes"
   name: "Create moodledata directory"
-
-- name: Add config.php
+- 
+  become: true
+  name: "Add config.php"
   template: "src=config.php dest=/var/www/html/{{ hostname }}/config.php"
-  become: yes
-
-- name: Update Moodle config file
-
-lineinfile:
-dest: "/var/www/html/{{ hostname }}/config.php"
-description: "It will find regexp and replace line"
-regexp: "{{ item.regexp }}"
-line: "{{ item.line }}"
-with_items:
-- {'regexp': "define\\('dbname', '(.)+'\\);", 'line': "define('dbname', '{{db_name}}');"}
-- {'regexp': "define\\('dbuser', '(.)+'\\);", 'line': "define('dbuser', '{{d_username}}');"}
-- {'regexp': "define\\('dbpassword', '(.)+'\\);", 'line': "define('dbpassword', '{{db_password}}');"}
-become: yes
+- 
+  become: true
+  description: "It will find regexp and replace line"
+  dest: "/var/www/html/{{ hostname }}/config.php"
+  line: "{{ item.line }}"
+  lineinfile: ~
+  name: "Update Moodle config file"
+  regexp: "{{ item.regexp }}"
+  with_items: 
+    - 
+      line: "define('dbname', '{{db_name}}');"
+      regexp: "define\\('dbname', '(.)+'\\);"
+    - 
+      line: "define('dbuser', '{{d_username}}');"
+      regexp: "define\\('dbuser', '(.)+'\\);"
+    - 
+      line: "define('dbpassword', '{{db_password}}');"
+      regexp: "define\\('dbpassword', '(.)+'\\);"
