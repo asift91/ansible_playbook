@@ -89,7 +89,7 @@ $CFG->wwwroot   = "http://{{ hostname }}";
 //
 // - On Windows systems you might specify something like 'c:\moodledata'
 
-$CFG->dataroot  = "{{ moodle_docs }}";
+$CFG->dataroot  = 'moodledata';
 
 
 
