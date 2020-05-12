@@ -1,44 +1,43 @@
-
-# tasks file for moodle
-
-- name: Create webroot
-  file:
-    state: directory
+--- 
+- 
+  become: true
+  file: 
+    group: www-data
+    mode: 493
+    owner: www-data
     path: /var/www/html
-    owner: www-data
-    group: www-data
-    mode: 0755
-  become: yes
-  
-- name: Check if Moodle archive exists
-  stat: path=/tmp/moodle-3.6.tgz
+    state: directory
+  name: "Create webroot"
+- 
+  name: "Check if Moodle archive exists"
   register: moodle_path
-  
-- name: Download Moodle archive
-  get_url: dest=/tmp/ url=https://download.moodle.org/stable36/moodle-3.6.3.tgz
-  when: (moodle_path.stat.exists == false)
-
-- name: Extract moodle
-  unarchive:
-    src: /tmp/moodle-3.6.3.tgz
+  stat: path=/tmp/moodle-3.6.tgz
+- 
+  get_url: "dest=/tmp/ url=https://download.moodle.org/stable36/moodle-3.6.3.tgz"
+  name: "Download Moodle archive"
+  when: "(moodle_path.stat.exists == false)"
+- 
+  become: true
+  name: "Extract moodle"
+  unarchive: 
+    copy: false
     dest: /tmp
-    owner: www-data
     group: www-data
-    copy: no
-  become: yes
-
-- name: Move moodle install files
-  command: mv /tmp/moodle /var/www/html/{{ hostname }}
-  become: yes
-
-- name: Fix ownership of Moodle
-  file: path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes
-
-- name: Create moodledata directory
-  file: path=/var/moodledata owner=www-data group=www-data state=directory recurse=yes
-  become: yes
-  
-- name: Add config.php
+    owner: www-data
+    src: /tmp/moodle-3.6.3.tgz
+- 
+  become: true
+  command: "mv /tmp/moodle /var/www/html/{{ hostname }}"
+  name: "Move moodle install files"
+- 
+  file: "path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes"
+  name: "Fix ownership of Moodle"
+- 
+  become: true
+  file: "path=/var/moodledata owner=www-data group=www-data state=directory recurse=yes"
+  name: "Create moodledata directory"
+- 
+  become: true
+  description: "It will add config.php file "
+  name: "Add config.php"
   template: "src=config.php dest=/var/www/html/{{hostname}}/config.php"
-  description: "It will add config.php file " 
-  become: yes
