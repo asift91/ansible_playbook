@@ -6,7 +6,7 @@ $CFG = new stdClass();
 
 $CFG->dbtype    = 'mysqli';
 $CFG->dblibrary = 'native';
-$CFG->dbhost    = 'local';
+$CFG->dbhost    = 'localhost';
 $CFG->dbname    = 'moodledb';
 $CFG->dbuser    = 'db_username';
 $CFG->dbpass    = 'db_password';
