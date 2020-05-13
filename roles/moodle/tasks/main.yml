@@ -32,10 +32,7 @@
 - 
   file: "path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes"
   name: "Fix ownership of Moodle"
-  
-- name: config.php
+- 
+  become: true
+  name: copying config.php
   template: "src=config.php dest=/var/www/html/{{ hostname }}/config.php"
-  become: yes
-  
-
-  
