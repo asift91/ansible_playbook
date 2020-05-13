@@ -32,6 +32,12 @@
 - 
   file: "path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes"
   name: "Fix ownership of Moodle"
+  
+- 
+  become: true
+  file: "path=/var/www/html/moodle/ owner=www-data group=www-data state=directory recurse=yes"
+  
+  name: "Create moodledata Parent directory"
 - 
   become: true
   file: "path=/var/www/html/moodle/moodledata owner=www-data group=www-data state=directory recurse=yes"
