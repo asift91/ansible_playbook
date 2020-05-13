@@ -34,9 +34,7 @@
   name: "Fix ownership of Moodle"
 - 
   become: true
-  file: "path=/var/moodledata owner=www-data group=www-data state=directory recurse=yes"
+  file: "path=/var/www/html/moodle/moodledata owner=www-data group=www-data state=directory recurse=yes"
+  
   name: "Create moodledata directory"
   
-- name: Add config.php
-  template: "src=config.php dest=/var/www/html/{{ hostname }}/config.php"
-  become: yes
