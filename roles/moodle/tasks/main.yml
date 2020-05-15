@@ -38,9 +38,6 @@
   name: "Change ownership of Moodle"
   
 - name: create a database
-  command: mysql -h $servername -u $adminlogin -p${adminpassword} -e "CREATE DATABASE ${databasename} CHARACTER SET utf8;"
+  command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "CREATE DATABASE moodledb CHARACTER SET utf8;"
 
-- 
-  become: true
-  name: copying config.php
-  template: "src=config.php dest=/var/www/html/{{ hostname }}/config.php"
+
