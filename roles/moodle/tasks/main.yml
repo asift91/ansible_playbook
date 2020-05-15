@@ -25,6 +25,10 @@
     group: www-data
     owner: www-data
     src: /tmp/moodle-3.6.3.tgz
+    
+- name: Install moodle
+  command:  /usr/bin/php /tmp/moodle/admin/cli/install.php
+  become: true 
 - 
   become: true
   command: "mv /tmp/moodle /var/www/html/{{ hostname }}"
@@ -32,10 +36,6 @@
 - 
   file: "path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes"
   name: "Fix ownership of Moodle"
-  
-- name: Install moodle
-  command:  /usr/bin/php /path/to/moodle/admin/cli/install.php
-  become: true 
   
 - name: create a database
   command: mysql -h $servername -u $adminlogin -p${adminpassword} -e "CREATE DATABASE ${databasename} CHARACTER SET utf8;"
