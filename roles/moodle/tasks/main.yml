@@ -37,12 +37,6 @@
   command: mkdir /tmp/moodle/lamp/moodledata
   command: chmod 777 /tmp/moodle/lamp
   become: true
-  unarchive:
-    group: www-data
-    mode: 777
-    owner: www-data
-    path: /tmp/moodle/lamp
-    state: directory
   
 - 
   name: Install moodle
