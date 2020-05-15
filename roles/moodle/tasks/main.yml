@@ -46,7 +46,7 @@
 - 
   become: true
   command: "mv /tmp/moodle /var/www/html/{{ hostname }}"
-  command: "mv -R /tmp/lamp/ /var/www/html 
+  command: "mv /tmp/lamp/ /var/www/html 
   name: "Move moodle install files"
 - 
   file: "path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes"
