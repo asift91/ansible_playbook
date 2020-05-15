@@ -33,9 +33,9 @@
 
 -
   name: create a moodledata directory
-  command: mkdir /tmp/lamp
-  command: mkdir /tmp/lamp/moodledata
-  command: chmod 777 /tmp/lamp
+  command: sudo mkdir /tmp/lamp
+  command: sudo mkdir /tmp/lamp/moodledata
+  command: sudo chmod 777 /tmp/lamp
   become: true
   
 - 
