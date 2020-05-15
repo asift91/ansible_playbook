@@ -4,4 +4,9 @@ user_name: azusername
 hostname: moodle
 domain_name: domain
 
+#database details will be updated in run time
+
+dbservername: localhost
+dbusername: dbname
+dbpassword: dbpass
 
