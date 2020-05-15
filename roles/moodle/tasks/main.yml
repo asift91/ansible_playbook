@@ -46,17 +46,19 @@
 - 
   become: true
   command: "mv /tmp/lamp/ /tmp/moodle/"
-  name: "Move moodledata directory"
-  
-- 
-  name: Install moodle
-  command: echo -e "cd /tmp; /usr/bin/php /tmp/moodle/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot="http"://"{{ domain_name | quote }}" --dataroot=/lamp/moodledata --dbhost="{{ dbservername | quote }}" --dbname="moodledb" --dbuser="{{ dbusername | quote }}" --dbpass="{{ dbpassword | quote }}" --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass="Moodle@123" --adminemail=admin@"{{ domain_name | quote }}" --non-interactive --agree-license --allow-unstable || true "
-  command: cd /tmp; /usr/bin/php /tmp/moodle/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot=http://{{ domain_name | quote }} --dataroot=/lamp/moodledata --dbhost={{ dbservername | quote }} --dbname=moodledb --dbuser={{ dbusername | quote }} --dbpass={{ dbpassword | quote }} --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass=Moodle@123 --adminemail=admin@{{ domain_name | quote }} --non-interactive --agree-license --allow-unstable || true
-  become: true 
+  name: "Move moodledata directory"  
+
 - 
   become: true
   command: "mv /tmp/moodle /var/www/html/{{ hostname }}"
   name: "Move moodle install files"
+
+- 
+  name: Install moodle
+  command: echo -e "cd /tmp; /usr/bin/php /var/www/html/{{ hostname }}/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot="http"://"{{ domain_name | quote }}" --dataroot=/var/www/html/{{ hostname }}/lamp/moodledata --dbhost="{{ dbservername | quote }}" --dbname="moodledb" --dbuser="{{ dbusername | quote }}" --dbpass="{{ dbpassword | quote }}" --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass="Moodle@123" --adminemail=admin@"{{ domain_name | quote }}" --non-interactive --agree-license --allow-unstable || true "
+  command: cd /tmp; /usr/bin/php /tmp/moodle/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot=http://{{ domain_name | quote }} --dataroot=/var/www/html/{{ hostname }}/lamp/moodledata --dbhost={{ dbservername | quote }} --dbname=moodledb --dbuser={{ dbusername | quote }} --dbpass={{ dbpassword | quote }} --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass=Moodle@123 --adminemail=admin@{{ domain_name | quote }} --non-interactive --agree-license --allow-unstable || true
+  become: true 
+  
 - 
   file: "path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes"
   name: "Change ownership of Moodle"
