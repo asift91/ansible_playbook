@@ -32,6 +32,14 @@
 - 
   file: "path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes"
   name: "Fix ownership of Moodle"
+  
+- name: Install moodle
+  command:  /usr/bin/php /path/to/moodle/admin/cli/install.php
+  become: true 
+  
+- name: create a database
+  command: mysql -h $servername -u $adminlogin -p${adminpassword} -e "CREATE DATABASE ${databasename} CHARACTER SET utf8;"
+
 - 
   become: true
   name: copying config.php
