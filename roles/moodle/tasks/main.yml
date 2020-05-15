@@ -35,7 +35,7 @@
   name: "Move moodle install files"
 - 
   file: "path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes"
-  name: "Fix ownership of Moodle"
+  name: "Change ownership of Moodle"
   
 - name: create a database
   command: mysql -h $servername -u $adminlogin -p${adminpassword} -e "CREATE DATABASE ${databasename} CHARACTER SET utf8;"
