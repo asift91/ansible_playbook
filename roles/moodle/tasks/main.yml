@@ -25,9 +25,14 @@
     group: www-data
     owner: www-data
     src: /tmp/moodle-3.6.3.tgz
-    
+
+- name: create a database
+  command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "CREATE DATABASE moodledb CHARACTER SET utf8;"
+  command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "GRANT ALL ON moodledb.* TO moodle IDENTIFIED BY 'Moodle@123';"
+
 - name: Install moodle
-  command:  /usr/bin/php /tmp/moodle/admin/cli/install.php
+  command: echo -e "cd /tmp; /usr/bin/php /tmp/moodle/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot="http"://"{{ domain_name | quote }}" --dataroot=/moodle/moodledata --dbhost="{{ dbservername | quote }}" --dbname="moodledb" --dbuser="{{ dbusername | quote }}" --dbpass="{{ dbpassword | quote }}" --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass="Moodle@123" --adminemail=admin@"{{ domain_name | quote }}" --non-interactive --agree-license --allow-unstable || true "
+  command: cd /tmp; /usr/bin/php /tmp/moodle/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot=http://{{ domain_name | quote }} --dataroot=/moodle/moodledata --dbhost={{ dbservername | quote }} --dbname=moodledb --dbuser={{ dbusername | quote }} --dbpass={{ dbpassword | quote }} --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass=Moodle@123 --adminemail=admin@{{ domain_name | quote }} --non-interactive --agree-license --allow-unstable || true
   become: true 
 - 
   become: true
@@ -37,8 +42,3 @@
   file: "path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes"
   name: "Change ownership of Moodle"
   
-- name: create a database
-  command: echo -e "cd /tmp; /usr/bin/php /tmp/moodle/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot="http"://"{{ domain_name | quote }}" --dataroot=/moodle/moodledata --dbhost="{{ dbservername | quote }}" --dbname="moodledb" --dbuser="{{ dbusername | quote }}" --dbpass="{{ dbpassword | quote }}" --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass="Moodle@123" --adminemail=admin@"{{ domain_name | quote }}" --non-interactive --agree-license --allow-unstable || true "
-  command: cd /tmp; /usr/bin/php /tmp/moodle/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot=http://{{ domain_name | quote }} --dataroot=/moodle/moodledata --dbhost={{ dbservername | quote }} --dbname=moodledb --dbuser={{ dbusername | quote }} --dbpass={{ dbpassword | quote }} --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass=Moodle@123 --adminemail=admin@{{ domain_name | quote }} --non-interactive --agree-license --allow-unstable || true
-
-
