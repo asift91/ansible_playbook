@@ -31,15 +31,13 @@
   command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "CREATE DATABASE moodledb CHARACTER SET utf8;"
   command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "GRANT ALL ON moodledb.* TO moodle IDENTIFIED BY 'Moodle@123';"
 
-- 
-  name: Create a moodle data parent directory if it does not exist
+- name: Create a moodle data parent directory if it does not exist
   file:
     path: /tmp/lamp
     state: directory
     mode: '0777'
  
- - 
-  name: Create a moodle data directory if it does not exist
+- name: Create a moodle data directory if it does not exist
   file:
     path: /tmp/lamp/moodledata
     state: directory
