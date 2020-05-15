@@ -45,7 +45,7 @@
 
 - 
   become: true
-  command: "mv /tmp/lamp/ /var/www/html"
+  command: "mv /tmp/lamp/ /tmp/moodle/"
   name: "Move moodledata directory"
   
 - 
