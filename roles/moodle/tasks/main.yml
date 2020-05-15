@@ -33,7 +33,7 @@
 - name: create a moodledata directory
   command: mkdir /tmp/moodle/lamp
   command: mkdir /tmp/moodle/lamp/moodledata
-  file: 
+  unarchive:
     group: www-data
     mode: 777
     owner: www-data
