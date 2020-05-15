@@ -33,9 +33,9 @@
 
 -
   name: create a moodledata directory
-  command: mkdir /tmp/moodle/lamp
-  command: mkdir /tmp/moodle/lamp/moodledata
-  command: chmod 777 /tmp/moodle/lamp
+  command: mkdir /tmp/lamp
+  command: mkdir /tmp/lamp/moodledata
+  command: chmod 777 /tmp/lamp
   become: true
   
 - 
@@ -46,6 +46,7 @@
 - 
   become: true
   command: "mv /tmp/moodle /var/www/html/{{ hostname }}"
+  command: "mv -R /tmp/lamp/ /var/www/html 
   name: "Move moodle install files"
 - 
   file: "path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes"
