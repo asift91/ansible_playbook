@@ -31,12 +31,24 @@
   command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "CREATE DATABASE moodledb CHARACTER SET utf8;"
   command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "GRANT ALL ON moodledb.* TO moodle IDENTIFIED BY 'Moodle@123';"
 
--
-  name: create a moodledata directory
-  command: sudo mkdir /tmp/lamp
-  command: sudo mkdir /tmp/lamp/moodledata
-  command: sudo chmod 777 /tmp/lamp
+- 
+  name: Create a moodle data parent directory if it does not exist
+  file:
+    path: /tmp/lamp
+    state: directory
+    mode: '0777'
+ 
+ - 
+  name: Create a moodle data directory if it does not exist
+  file:
+    path: /tmp/lamp/moodledata
+    state: directory
+    mode: '0755'
+
+- 
   become: true
+  command: "mv /tmp/lamp/ /var/www/html"
+  name: "Move moodledata directory"
   
 - 
   name: Install moodle
@@ -46,7 +58,6 @@
 - 
   become: true
   command: "mv /tmp/moodle /var/www/html/{{ hostname }}"
-  command: "mv /tmp/lamp/ /var/www/html"
   name: "Move moodle install files"
 - 
   file: "path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes"
