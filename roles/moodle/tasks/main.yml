@@ -50,10 +50,10 @@
     state: directory
     mode: '0755'
 
-#- 
-#  become: true
-#  command: "mv {{moodle_data_dir}}/ {{moodle_download_path}}/"
-#  name: "Move moodledata directory"  
+- 
+  become: true
+  command: "mv {{moodle_data_dir}}/ {{moodle_download_path}}/"
+  name: "Move moodledata directory"  
 
 - 
   become: true
