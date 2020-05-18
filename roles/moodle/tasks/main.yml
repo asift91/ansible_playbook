@@ -2,18 +2,18 @@
 - 
   become: true
   file: 
-    group: www-data
+    group: {{default_permission}}
     mode: 493
-    owner: www-data
-    path: /var/www/html
+    owner: {{default_permission}}
+    path: {{webroot}}
     state: directory
   name: "Create webroot"
 - 
   name: "Check if Moodle archive exists"
   register: moodle_path
-  stat: path=/tmp/moodle-3.6.tgz
+  stat: path={{moodle_download_path}}-{{version}}.tgz
 - 
-  get_url: "dest=/tmp/ url=https://download.moodle.org/stable36/moodle-3.6.3.tgz"
+  get_url: "dest=/tmp/ url={{moodle_download_url}}-{{version}}.tgz"
   name: "Download Moodle archive"
   when: "(moodle_path.stat.exists == false)"
 - 
@@ -22,51 +22,51 @@
   unarchive: 
     copy: false
     dest: /tmp
-    group: www-data
-    owner: www-data
-    src: /tmp/moodle-3.6.3.tgz
+    group: {{default_permission}}
+    owner: {{default_permission}}
+    src: {{moodle_download_path}}-{{version}}.tgz
 
 - 
   name: create a database
-  command: mysql -h {{dbservername}} -u {{dbusername}} -p{{dbpassword}} -e "CREATE DATABASE moodledb CHARACTER SET utf8;"
+  command: mysql -h {{dbservername}} -u {{dbusername}} -p{{dbpassword}} -e "CREATE DATABASE {{moodle_db_name}} CHARACTER SET utf8;"
   register: output
 - debug: var=output.stdout_lines
 
 - 
   name: grant user permission to database
-  command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "GRANT ALL ON moodledb.* TO moodle IDENTIFIED BY 'Moodle@123';"
+  command: mysql -h {{dbservername}} -u {{dbusername}} -p{{dbpassword}} -e "GRANT ALL ON {{moodle_db_name}}.* TO moodle IDENTIFIED BY 'Moodle@123';"
   register: outputpremission
 - debug: var=outputpremission.stdout_lines
 
 - name: Create a moodle data parent directory if it does not exist
   file:
-    path: /tmp/lamp
+    path: {{moodle_data_dir}}/
     state: directory
     mode: '0777'
  
 - name: Create a moodle data directory if it does not exist
   file:
-    path: /tmp/lamp/moodledata
+    path: {{moodle_data_dir}}/moodledata
     state: directory
     mode: '0755'
 
 - 
   become: true
-  command: "mv /tmp/lamp/ /tmp/moodle/"
+  command: "mv {{moodle_data_dir}}/ {{moodle_download_path}}/"
   name: "Move moodledata directory"  
 
 - 
   become: true
-  command: "mv /tmp/moodle /var/www/html/{{ hostname }}"
+  command: "mv {{moodle_download_path}} {{webroot}}/{{ hostname }}"
   name: "Move moodle install files"
 
 - 
   name: Install moodle
-  command: echo -e "cd /tmp; /usr/bin/php /var/www/html/{{ hostname }}/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot="http"://"{{ domain_name | quote }}" --dataroot=/var/www/html/{{ hostname }}/lamp/moodledata --dbhost="{{ dbservername | quote }}" --dbname="moodledb" --dbuser="{{ dbusername | quote }}" --dbpass="{{ dbpassword | quote }}" --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass="Moodle@123" --adminemail=admin@"{{ domain_name | quote }}" --non-interactive --agree-license --allow-unstable || true "
-  command: cd /tmp; /usr/bin/php /tmp/moodle/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot=http://{{ domain_name | quote }} --dataroot=/var/www/html/{{ hostname }}/lamp/moodledata --dbhost={{ dbservername | quote }} --dbname=moodledb --dbuser={{ dbusername | quote }} --dbpass={{ dbpassword | quote }} --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass=Moodle@123 --adminemail=admin@{{ domain_name | quote }} --non-interactive --agree-license --allow-unstable || true
+  command: echo -e "cd /tmp; /usr/bin/php {{webroot}}/{{ hostname }}/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot="http"://"{{domain_name}}" --dataroot={{webroot}}/{{hostname}}/datadir/moodledata --dbhost="{{dbservername}}" --dbname="{{moodle_db_name}}" --dbuser="{{dbusername}}" --dbpass="{{dbpassword}}" --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass="Moodle@123" --adminemail=admin@"{{domain_name}}" --non-interactive --agree-license --allow-unstable || true "
+  command: cd /tmp; /usr/bin/php {{moodle_download_path}}/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot=http://{{domain_name}} --dataroot={{webroot}}/{{hostname}}/datadir/moodledata --dbhost={{dbservername}} --dbname={{moodle_db_name}} --dbuser={{dbusername}} --dbpass={{dbpassword}} --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass=Moodle@123 --adminemail=admin@{{domain_name}} --non-interactive --agree-license --allow-unstable || true
   become: true 
   
 - 
-  file: "path=/var/www/html/moodle owner=www-data group=www-data state=directory recurse=yes"
+  file: "path={{webroot}}/moodle owner={{default_permission}} group={{default_permission}} state=directory recurse=yes"
   name: "Change ownership of Moodle"
   
