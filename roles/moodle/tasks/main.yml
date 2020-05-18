@@ -29,9 +29,14 @@
 - 
   name: create a database
   command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "CREATE DATABASE moodledb CHARACTER SET utf8;"
-  command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "GRANT ALL ON moodledb.* TO moodle IDENTIFIED BY 'Moodle@123';"
   register: output
-  debug: var=output.stdout_lines
+- debug: var=output.stdout_lines
+
+- 
+  name: grant user permission to database
+  command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "GRANT ALL ON moodledb.* TO moodle IDENTIFIED BY 'Moodle@123';"
+  register: outputpremission
+- debug: var=outputpermission.stdout_lines
 
 - name: Create a moodle data parent directory if it does not exist
   file:
