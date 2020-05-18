@@ -2,16 +2,16 @@
 - 
   become: true
   file: 
-    group: {{default_permission}}
+    group: "{{default_permission}}"
     mode: 493
-    owner: {{default_permission}}
-    path: {{webroot}}
+    owner: "{{default_permission}}"
+    path: "{{webroot}}"
     state: directory
   name: "Create webroot"
 - 
   name: "Check if Moodle archive exists"
   register: moodle_path
-  stat: path={{moodle_download_path}}-{{version}}.tgz
+  stat: path="{{moodle_download_path}}-{{version}}.tgz"
 - 
   get_url: "dest=/tmp/ url={{moodle_download_url}}-{{version}}.tgz"
   name: "Download Moodle archive"
@@ -22,8 +22,8 @@
   unarchive: 
     copy: false
     dest: /tmp
-    group: {{default_permission}}
-    owner: {{default_permission}}
+    group: "{{default_permission}}"
+    owner: "{{default_permission}}"
     src: "{{moodle_download_path}}-{{version}}.tgz"
 
 - 
