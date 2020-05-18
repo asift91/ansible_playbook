@@ -44,6 +44,9 @@
     path: "{{moodle_data_dir}}/"
     state: directory
     mode: '0777'
+    group: "{{default_permission}}"
+    owner: "{{default_permission}}"
+
  
 - name: Create a moodle data directory if it does not exist
   become: true
@@ -51,6 +54,8 @@
     path: "{{moodle_data_dir}}/moodledata/"
     state: directory
     mode: '0755'
+    group: "{{default_permission}}"
+    owner: "{{default_permission}}"    
 
 #- 
 #  become: true
