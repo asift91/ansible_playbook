@@ -38,48 +38,11 @@
   register: outputpremission
 - debug: var=outputpremission.stdout_lines
 
-- name: Create a moodle data parent directory if it does not exist
-  become: true
-  file:
-    path: "{{moodle_data_dir}}/"
-    state: directory
-    mode: '0777'
-    group: "{{default_permission}}"
-    owner: "{{default_permission}}"
-
- 
-- name: Create a moodle data directory if it does not exist
-  become: true
-  file:
-    path: "{{moodle_data_dir}}/moodledata/"
-    state: directory
-    mode: '0755'
-    group: "{{default_permission}}"
-    owner: "{{default_permission}}"    
-
-#- 
-#  become: true
-#  command: "mv {{moodle_data_dir}}/ {{moodle_data_target_path}}/"
-#  name: "Move moodledata directory"  
-  
 - 
   become: true
-  command: "mv {{moodle_download_path}}/ {{webroot}}/{{ hostname }}/"
+  command: "mv {{moodle_download_path}}/ {{webroot}}/{{hostname}}/"
   name: "Move moodle install files"
-
-
-# sudo -u www-data /usr/bin/php admin/cli/install.php --wwwroot=http://{{lbip}}/moodle --dataroot={{moodle_data_dir}}/moodledata--dbtype=mysqli --dbhost={{dbservername}} --dbname={{moodle_db_name}} --dbuser={{dbusername}}--dbpass={{dbpassword}} --fullname='Moodle LMS'--shortname='Moodle' —adminuser=admin --adminpass=Moodle@123 --non-interactive --agree-license
-# echo -e "cd /tmp; /usr/bin/php {{webroot}}/{{hostname}}/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot="http"://"{{lbip}}" --dataroot={{moodle_data_dir}}/moodledata --dbhost="{{dbservername}}" --dbname="{{moodle_db_name}}" --dbuser="{{dbusername}}" --dbpass="{{dbpassword}}" --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass="Moodle@123" --adminemail=admin@"{{domain_name}}" --non-interactive --agree-license --allow-unstable || true "
-- 
-  name: Install moodle echo
-  command: echo -e "-u www-data /usr/bin/php {{webroot}}/{{hostname}}/admin/cli/install.php --wwwroot=http://{{lbip}}/moodle --dataroot={{moodle_data_dir}}/moodledata --dbtype=mysqli --dbhost={{dbservername}} --dbname={{moodle_db_name}} --dbuser={{dbusername}} --dbpass={{dbpassword}} --fullname='Moodle LMS' --shortname='Moodle' —adminuser=admin --adminpass=Moodle@123 --non-interactive --agree-license"
-  become: true 
   
 - 
-  name: Install moodle
-  command: -u www-data /usr/bin/php {{webroot}}/{{hostname}}/admin/cli/install.php --wwwroot=http://{{lbip}}/moodle --dataroot={{moodle_data_dir}}/moodledata --dbtype=mysqli --dbhost={{dbservername}} --dbname={{moodle_db_name}} --dbuser={{dbusername}} --dbpass={{dbpassword}} --fullname='Moodle LMS' --shortname='Moodle' —adminuser=admin --adminpass=Moodle@123 --non-interactive --agree-license
-  become: true 
-  
-- 
-  file: "path={{webroot}}/moodle owner={{default_permission}} group={{default_permission}} state=directory recurse=yes"
+  file: "path={{webroot}}/{{hostname}}/ owner={{default_permission}} group={{default_permission}} state=directory recurse=yes"
   name: "Change ownership of Moodle"
