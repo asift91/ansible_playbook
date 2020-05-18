@@ -52,10 +52,10 @@
     state: directory
     mode: '0755'
 
-- 
-  become: true
-  command: "mv {{moodle_data_dir}}/ {{moodle_data_target_path}}/"
-  name: "Move moodledata directory"  
+#- 
+#  become: true
+#  command: "mv {{moodle_data_dir}}/ {{moodle_data_target_path}}/"
+#  name: "Move moodledata directory"  
 
 - 
   name: Install moodle echo
