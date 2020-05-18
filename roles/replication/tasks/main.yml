@@ -9,6 +9,6 @@
   name: "Download replica script using get_url"
 -
   name: "Run a replica script with arguments (using 'cmd' parameter)"
-  shell: /home/{{user_name | quote }}/moodlereplication.sh {{domain_name | quote }}
+  shell: /home/{{user_name | quote }}/{{repli_script_name}} {{domain_name | quote }}
   args:
     executable: /bin/bash
