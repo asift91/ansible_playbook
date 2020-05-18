@@ -2,20 +2,12 @@
   connection: local
   roles:
     - sshkeyconfig
-    
 
-
+- hosts: dbservers
+  roles:
+    - dbrole
+ 
 - hosts: webservers
-
   roles:
     - moodle
     - replication
-  
-
-
-    
-
-   
- 
-  
-    
