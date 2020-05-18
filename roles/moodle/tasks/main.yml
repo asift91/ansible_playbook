@@ -36,7 +36,7 @@
   name: grant user permission to database
   command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "GRANT ALL ON moodledb.* TO moodle IDENTIFIED BY 'Moodle@123';"
   register: outputpremission
-- debug: var=outputpermission.stdout_lines
+- debug: var=outputpremission.stdout_lines
 
 - name: Create a moodle data parent directory if it does not exist
   file:
