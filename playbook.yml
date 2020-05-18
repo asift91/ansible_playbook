@@ -3,9 +3,9 @@
   roles:
     - sshkeyconfig
 
-- hosts: dbservers
-  roles:
-    - dbrole
+#- hosts: dbservers
+#  roles:
+#    - dbrole
  
 - hosts: webservers
   roles:
