@@ -1,5 +1,0 @@
-#---
-#- 
- # name: create a database
- # command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "CREATE DATABASE moodledb CHARACTER SET utf8;"
- # command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "GRANT ALL ON moodledb.* TO moodle IDENTIFIED BY 'Moodle@123';"
