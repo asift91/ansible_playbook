@@ -52,17 +52,17 @@
 
 - 
   become: true
-  command: "mv {{moodle_data_dir}}/ {{moodle_download_path}}/"
+  command: "mv {{moodle_data_dir}}/ {{moodle_data_target_path}}/"
   name: "Move moodledata directory"  
 
 - 
   name: Install moodle echo
-  command: echo -e "cd /tmp; /usr/bin/php {{webroot}}/{{ hostname }}/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot="http"://"{{lbip}}" --dataroot={{moodle_download_path}}/datadir/moodledata --dbhost="{{dbservername}}" --dbname="{{moodle_db_name}}" --dbuser="{{dbusername}}" --dbpass="{{dbpassword}}" --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass="Moodle@123" --adminemail=admin@"{{domain_name}}" --non-interactive --agree-license --allow-unstable || true "
+  command: echo -e "cd /tmp; /usr/bin/php {{webroot}}/{{ hostname }}/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot="http"://"{{lbip}}" --dataroot={{moodle_data_dir}}/moodledata --dbhost="{{dbservername}}" --dbname="{{moodle_db_name}}" --dbuser="{{dbusername}}" --dbpass="{{dbpassword}}" --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass="Moodle@123" --adminemail=admin@"{{domain_name}}" --non-interactive --agree-license --allow-unstable || true "
   become: true 
   
 - 
   name: Install moodle
-  command: cd /tmp; /usr/bin/php {{moodle_download_path}}/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot=http://{{lbip}} --dataroot={{moodle_download_path}}/datadir/moodledata --dbhost={{dbservername}} --dbname={{moodle_db_name}} --dbuser={{dbusername}} --dbpass={{dbpassword}} --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass=Moodle@123 --adminemail=admin@{{domain_name}} --non-interactive --agree-license --allow-unstable || true
+  command: cd /tmp; /usr/bin/php {{moodle_download_path}}/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot=http://{{lbip}} --dataroot={{moodle_data_dir}}/moodledata --dbhost={{dbservername}} --dbname={{moodle_db_name}} --dbuser={{dbusername}} --dbpass={{dbpassword}} --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass=Moodle@123 --adminemail=admin@{{domain_name}} --non-interactive --agree-license --allow-unstable || true
   become: true 
   
 - 
