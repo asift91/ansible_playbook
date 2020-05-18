@@ -56,6 +56,12 @@
 #  become: true
 #  command: "mv {{moodle_data_dir}}/ {{moodle_data_target_path}}/"
 #  name: "Move moodledata directory"  
+  
+- 
+  become: true
+  command: "mv {{moodle_download_path}}/ {{webroot}}/{{ hostname }}/"
+  name: "Move moodle install files"
+
 
 - 
   name: Install moodle echo
@@ -70,9 +76,3 @@
 - 
   file: "path={{webroot}}/moodle owner={{default_permission}} group={{default_permission}} state=directory recurse=yes"
   name: "Change ownership of Moodle"
-  
-- 
-  become: true
-  command: "mv {{moodle_download_path}}/ {{webroot}}/{{ hostname }}/"
-  name: "Move moodle install files"
-
