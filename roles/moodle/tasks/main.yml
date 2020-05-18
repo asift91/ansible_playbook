@@ -24,7 +24,7 @@
     dest: /tmp
     group: {{default_permission}}
     owner: {{default_permission}}
-    src: "{{moodle_download_path}}"-"{{version}}".tgz
+    src: "{{moodle_download_path}}-{{version}}.tgz"
 
 - 
   name: create a database
