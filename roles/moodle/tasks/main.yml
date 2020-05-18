@@ -28,7 +28,7 @@
 
 - 
   name: create a database
-  command: mysql -h {{ dbservername | quote }} -u {{ dbusername | quote }} -p{{ dbpassword | quote }} -e "CREATE DATABASE moodledb CHARACTER SET utf8;"
+  command: mysql -h {{dbservername}} -u {{dbusername}} -p{{dbpassword}} -e "CREATE DATABASE moodledb CHARACTER SET utf8;"
   register: output
 - debug: var=output.stdout_lines
 
