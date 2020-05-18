@@ -56,11 +56,6 @@
   name: "Move moodledata directory"  
 
 - 
-  become: true
-  command: "mv {{moodle_download_path}}/ {{webroot}}/{{ hostname }}/"
-  name: "Move moodle install files"
-
-- 
   name: Install moodle
   command: echo -e "cd /tmp; /usr/bin/php {{webroot}}/{{ hostname }}/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot="http"://"{{lbip}}" --dataroot={{webroot}}/{{hostname}}/datadir/moodledata --dbhost="{{dbservername}}" --dbname="{{moodle_db_name}}" --dbuser="{{dbusername}}" --dbpass="{{dbpassword}}" --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass="Moodle@123" --adminemail=admin@"{{domain_name}}" --non-interactive --agree-license --allow-unstable || true "
   command: cd /tmp; /usr/bin/php {{moodle_download_path}}/admin/cli/install.php --chmod=770 --lang=en_us --wwwroot=http://{{lbip}} --dataroot={{webroot}}/{{hostname}}/datadir/moodledata --dbhost={{dbservername}} --dbname={{moodle_db_name}} --dbuser={{dbusername}} --dbpass={{dbpassword}} --dbtype=mysqli --fullname='Moodle LMS' --shortname='Moodle' --adminuser=admin --adminpass=Moodle@123 --adminemail=admin@{{domain_name}} --non-interactive --agree-license --allow-unstable || true
@@ -70,3 +65,8 @@
   file: "path={{webroot}}/moodle owner={{default_permission}} group={{default_permission}} state=directory recurse=yes"
   name: "Change ownership of Moodle"
   
+- 
+  become: true
+  command: "mv {{moodle_download_path}}/ {{webroot}}/{{ hostname }}/"
+  name: "Move moodle install files"
+
