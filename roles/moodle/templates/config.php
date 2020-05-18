@@ -6,10 +6,10 @@ $CFG = new stdClass();
 
 $CFG->dbtype    = 'mysqli';
 $CFG->dblibrary = 'native';
-$CFG->dbhost    = 'localhost';
-$CFG->dbname    = 'moodledb';
-$CFG->dbuser    = 'db_username';
-$CFG->dbpass    = 'db_password';
+$CFG->dbhost    = '{{dbservername}}';
+$CFG->dbname    = '{{moodle_db_name}}';
+$CFG->dbuser    = '{{dbusername}}';
+$CFG->dbpass    = '{{dbpassword}}';
 $CFG->prefix    = 'mdl_';
 $CFG->dboptions = array (
   'dbpersist' => 0,
@@ -18,8 +18,8 @@ $CFG->dboptions = array (
   'dbcollation' => 'utf8mb4_unicode_ci',
 );
 
-$CFG->wwwroot   = 'http';
-$CFG->dataroot  = '/var/www/html/lamp/moodledata';
+$CFG->wwwroot   = 'http//{{lbip}}';
+$CFG->dataroot  = '{{webroot}}/{{moodle_data_par_path}}';
 $CFG->admin     = 'admin';
 
 $CFG->directorypermissions = 0777;
