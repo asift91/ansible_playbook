@@ -5,7 +5,7 @@
     group: "{{user_name | quote }}"
     mode: 493
     owner: "{{user_name | quote }}"
-    url: "https://raw.githubusercontent.com/asift91/ansiblewp/master/moodlereplication.sh"
+    url: {{replication_url}}
   name: "Download replica script using get_url"
 -
   name: "Run a replica script with arguments (using 'cmd' parameter)"
