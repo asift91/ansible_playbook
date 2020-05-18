@@ -4,9 +4,17 @@ user_name: azusername
 hostname: moodle
 domain_name: domain
 
+webroot: /var/www/html
+moodle_download_url: https://download.moodle.org/stable36/moodle
+moodle_data_dir: /tmp/datadir
+moodle_download_path: /tmp/moodle
+version: 3.6.3
+default_permission: www-data
 #database details will be updated in run time
 
 dbservername: localhost
 dbusername: dbname
 dbpassword: dbpass
+moodle_db_name: moodle
 
+replication_url: https://raw.githubusercontent.com/asift91/ansiblewp/master/moodlereplication.sh
