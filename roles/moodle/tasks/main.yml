@@ -57,7 +57,7 @@
 
 - 
   become: true
-  command: "mv {{moodle_download_path}} {{webroot}}/{{ hostname }}"
+  command: "mv {{moodle_download_path}}/ {{webroot}}/{{ hostname }}/"
   name: "Move moodle install files"
 
 - 
